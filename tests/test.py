@@ -1,10 +1,11 @@
 from nose.tools import *
 import os
 import threading
+import unittest
 
-from local import local
+from plocal import local
 
-class TestBasics(object):
+class TestBasics(unittest.TestCase):
     def test_assignment(self):
         l = local()
         l.x = 1
@@ -26,7 +27,7 @@ class TestBasics(object):
         l.x
 
 
-class TestThreading(object):
+class TestThreading(unittest.TestCase):
     def test_namespace(self):
         l = local()
         def f():
@@ -67,7 +68,7 @@ class TestThreading(object):
         th.join()
         ok_(l.x == 'a')
 
-class TestMultiProcessOnly(object):
+class TestMultiProcessOnly(unittest.TestCase):
     def test_namespace(self):
         l = local(thread_local=False)
         l.x = 'a'
